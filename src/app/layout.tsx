@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import EmotionRegistry from "@/lib/emotion-registry";
+import { ThemeProvider } from "@emotion/react";
+import theme from "@/lib/theme";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
