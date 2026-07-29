@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ColorInput } from "@/components/ColorInput";
 import { ContrastResult, evaluateContrast, getContrastRatio, hexToRgb } from "@/lib/contrast";
+import { ResultsPanel } from "@/components/ResultsPanel";
 
 export default function Home() {
   const [foregroundHex, setForegroundHex] = useState('#000000');
@@ -30,6 +31,8 @@ export default function Home() {
         hexValue={backgroundHex}
         onChange={setBackgroundHex}
       />
+
+      <ResultsPanel result={result} />
     </main>
   );
 }
