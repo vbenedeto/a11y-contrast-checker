@@ -6,17 +6,11 @@ You can check colors two ways:
 - **Manually** — pick or type two hex colors
 - **From an image** — upload a screenshot, click to sample the text and background colors directly from it
 
-## Why this exists
-
-Most contrast checkers only check text-on-background at one threshold. This one checks:
-
 | Criterion | Level | Normal text | Large text | UI components |
 |---|---|---|---|---|
 | 1.4.3 | AA | 4.5:1 | 3:1 | — |
 | 1.4.6 | AAA | 7:1 | 4.5:1 | — |
 | 1.4.11 | AA | — | — | 3:1 |
-
-That last row (non-text/UI component contrast — think button borders, icons, focus rings) is the one most contrast checkers skip. It's easy to miss and easy to fail, so I made sure to include it.
 
 ## Stack
 
