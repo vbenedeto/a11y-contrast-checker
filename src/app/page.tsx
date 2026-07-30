@@ -33,6 +33,10 @@ const StyledMain = styled.main`
   max-width: 720px;
   margin: 0 auto;
   padding: ${({ theme }) => theme.spacing.lg};
+
+  input[type="checkbox"] {
+    accent-color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 const StyledFooter = styled.footer`
@@ -62,6 +66,7 @@ const StyledFooter = styled.footer`
 export default function Home() {
   const [foregroundHex, setForegroundHex] = useState('#000000');
   const [backgroundHex, setBackgroundHex] = useState('#ffffff');
+  const [imageUpload, setImageUpload] = useState(false);
 
   const foregroundRgb = hexToRgb(foregroundHex);
   const backgroundRgb = hexToRgb(backgroundHex);
@@ -78,11 +83,6 @@ export default function Home() {
         <p>Check WCAG color contrast for any two colors or image</p>
       </StyledHeader>
       <StyledMain>
-        <ImageColorPicker
-          onForegroundPick={setForegroundHex}
-          onBackgroundPick={setBackgroundHex}
-        />
-
         <ColorInput 
           id="foreground"
           label="Text Color"
@@ -95,6 +95,25 @@ export default function Home() {
           hexValue={backgroundHex}
           onChange={setBackgroundHex}
         />
+
+        <p>
+          <label htmlFor="image-upload-toggle">
+            <input
+              type="checkbox"
+              id="image-upload-toggle"
+              checked={imageUpload}
+              onChange={(e) => setImageUpload(e.target.checked)}
+            />
+            {' '}Click here to choose colors from an image
+          </label>
+        </p>
+
+        {imageUpload && (
+          <ImageColorPicker
+            onForegroundPick={setForegroundHex}
+            onBackgroundPick={setBackgroundHex}
+          />
+        )}
 
         <ResultsPanel result={result} />
       </StyledMain>

@@ -128,7 +128,7 @@ export function ImageColorPicker({ onForegroundPick, onBackgroundPick }: ImageCo
 
   return (
     <Container>
-      <legend>Sample Colors from an Image</legend>
+      <legend>Pick Colors from an Image</legend>
 
       <UploadRow>
         <VisuallyHidden htmlFor="image-upload">
@@ -140,8 +140,9 @@ export function ImageColorPicker({ onForegroundPick, onBackgroundPick }: ImageCo
 
       {imageLoaded && (
         <RadioGroup role="radiogrup" aria-label="Choose which color you're picking">
-          <label htmlFor="">
+          <label htmlFor="radio-foreground">
             <input 
+              id="radio-foreground"
               type="radio" 
               name="pick-target"
               checked={pickTarget === 'foreground'}
@@ -149,8 +150,9 @@ export function ImageColorPicker({ onForegroundPick, onBackgroundPick }: ImageCo
             />
             Pick text color
           </label>
-          <label htmlFor="">
+          <label htmlFor="radio-background">
             <input 
+              id="radio-background"
               type="radio" 
               name="pick-target"
               checked={pickTarget === 'background'}
