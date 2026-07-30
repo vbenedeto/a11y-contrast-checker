@@ -13,6 +13,7 @@
 }
 
 body {
+  font-family: var(--font-jetbrains-mono), sans-serif;
   background: #0F0B1A;
   color: #F3F1F7;
   line-height: 1.5;
@@ -41,4 +42,8 @@ h1, h2, h3, h4, h5, h6 {
 
 #root, #__next {
   isolation: isolate;
+}
+
+button:hover, input:hover {
+  cursor: pointer;
 }
