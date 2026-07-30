@@ -1,21 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# A11y Contrast Checker
 
-## Getting Started
+A tool that checks whether two colors pass WCAG contrast guidelines.
 
-First, run the development server:
+You can check colors two ways:
+- **Manually** — pick or type two hex colors
+- **From an image** — upload a screenshot, click to sample the text and background colors directly from it
+
+## Why this exists
+
+Most contrast checkers only check text-on-background at one threshold. This one checks:
+
+| Criterion | Level | Normal text | Large text | UI components |
+|---|---|---|---|---|
+| 1.4.3 | AA | 4.5:1 | 3:1 | — |
+| 1.4.6 | AAA | 7:1 | 4.5:1 | — |
+| 1.4.11 | AA | — | — | 3:1 |
+
+That last row (non-text/UI component contrast — think button borders, icons, focus rings) is the one most contrast checkers skip. It's easy to miss and easy to fail, so I made sure to include it.
+
+## Stack
+
+- **Next.js** (App Router) + **TypeScript**
+- **Emotion** for styling (styled components + a shared theme)
+- **lucide-react** for icons
+
+No backend — everything (color parsing, luminance math, contrast calculation) runs client-side. Next.js was chosen to match the stack this project was built for, not because the app needs server-side rendering.
+
+## Accessibility choices, specifically
+
+- Every input has a real, associated `<label>` 
+- Pass/fail results use **color + icon + text** together
+- Results update in an `aria-live="polite"` region, so screen reader users hear updates as colors change without needing to re-navigate to the results
+- Invalid hex input shows an error with `aria-invalid` + `aria-describedby`, announced via `role="alert"`
+- The app's own color palette was verified against its own contrast engine (header title vs. background: 7.12:1, passes AAA)
+
+## Running locally
 
 ```bash
+git clone https://github.com/vbenedeto/a11y-contrast-checker.git
+cd a11y-contrast-checker
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-## Deploy on Vercel
+Open [http://localhost:3000](http://localhost:3000).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Live demo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[link once deployed]
+
+## What I'd add with more time
+
+- **Emotion code-snippet parser** — paste a `styled.button` block, extract `color`/`background` values via regex, run them through the same engine. Scoped out to keep the timeline realistic, but the engine already supports it — it'd just need a textarea + a small regex.
+- **Unit tests** (Vitest) for the WCAG math functions — currently verified manually against known reference values (black vs. white = 21:1, white luminance = 1, etc.) 
+- **A large-text toggle** — right now all five thresholds show at once, which is complete but doesn't let someone say "I'm specifically checking large text" and get a single, focused answer.
+- **"Suggested fix"** — nudge a failing color's lightness until it crosses the passing threshold, so the tool doesn't just say "fail," it helps fix it.
