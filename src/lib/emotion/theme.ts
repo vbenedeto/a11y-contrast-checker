@@ -30,10 +30,11 @@ const theme = {
     pill: '999px',
   },
   fontSizes: {
-    sm: '0.875rem',
-    base: '1rem',
-    lg: '1.25rem',
-    xl: '2rem',
+    sm: '1rem',
+    base: '1.125rem',
+    lg: '1.275rem',
+    xl: '1.6rem',
+    xxl: '2.75rem',  
   },
 } as const;
 
