@@ -1,4 +1,6 @@
 import { rgbToHex } from "@/lib/contrast";
+import styled from "@emotion/styled";
+import { Upload } from "lucide-react";
 import { useRef, useState } from "react";
 
 type PickTarget = 'foreground' | 'background';
@@ -7,6 +9,72 @@ type ImageColorPickerProps = {
   onForegroundPick: (hex: string) => void;
   onBackgroundPick: (hex: string) => void;
 };
+
+const Container = styled.fieldset`
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.radii.md};
+  padding: ${({ theme }) => theme.spacing.lg};
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md};
+
+  legend {
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.text};
+    padding: 0 ${({ theme }) => theme.spacing.xs};
+  }
+`;
+
+const UploadRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm};
+
+  label {
+    font-size: ${({ theme }) => theme.fontSizes.base};
+    color: ${({ theme }) => theme.colors.textMuted};
+  }
+`;
+
+const VisuallyHidden = styled.label`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+`;
+
+const RadioGroup = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.lg};
+  font-size: ${({ theme }) => theme.fontSizes.base};
+  color: ${({ theme }) => theme.colors.textMuted};
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.spacing.xs};
+    cursor: pointer;
+  }
+
+  input[type="radio"] {
+    accent-color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
+const StyledCanvas = styled.canvas<{ $visible: boolean }>`
+  display: ${({ $visible }) => ($visible ? 'block' : 'none')};
+  max-width: 100%;
+   height: auto;
+  max-width: 100%;
+  border-radius: ${({ theme }) => theme.radii.md};
+  cursor: crosshair;
+`;
 
 export function ImageColorPicker({ onForegroundPick, onBackgroundPick }: ImageColorPickerProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -59,12 +127,19 @@ export function ImageColorPicker({ onForegroundPick, onBackgroundPick }: ImageCo
   }
 
   return (
-    <div>
-      <label htmlFor="image-upload">Upload an image</label>
-      <input id="image-upload" type="file" accept="image/*" onChange={handleFileChange} />
+    <Container>
+      <legend>Sample Colors from an Image</legend>
+
+      <UploadRow>
+        <VisuallyHidden htmlFor="image-upload">
+          Upload an image
+        </VisuallyHidden>
+        <input id="image-upload" type="file" accept="image/*" 
+        onChange={handleFileChange} />
+      </UploadRow>
 
       {imageLoaded && (
-        <div role="radiogrup" aria-label="Choose which color you're picking">
+        <RadioGroup role="radiogrup" aria-label="Choose which color you're picking">
           <label htmlFor="">
             <input 
               type="radio" 
@@ -83,10 +158,10 @@ export function ImageColorPicker({ onForegroundPick, onBackgroundPick }: ImageCo
             />
             Pick background color
           </label>
-        </div>
+        </RadioGroup>
       )}
 
-      <canvas
+      <StyledCanvas
         ref={canvasRef}
         onClick={handleCanvasClick}
         role="img"
@@ -95,10 +170,8 @@ export function ImageColorPicker({ onForegroundPick, onBackgroundPick }: ImageCo
             ? `Uploaded image. Click anywhere to choose the ${pickTarget} color.`
             : 'No image uploaded yet'
         }
-        style={{ cursor: imageLoaded ? 'crosshair' : 'default', maxWidth: '100%' }}
-      >
-
-      </canvas>
-    </div>
+        $visible={imageLoaded}
+      />
+    </Container>
   )
 }
