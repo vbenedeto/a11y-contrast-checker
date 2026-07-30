@@ -24,6 +24,24 @@ export function hexToRgb(hex: string): RGB | null {
   return {r, g, b};
 }
 
+export function rgbToHex({r, g, b}: RGB): string {
+  function hexaCorrect(hexa: string): string {
+    if (hexa.length == 1) {
+      hexa = "0" + hexa;
+    }
+    return hexa;
+  }
+
+  let hexaR = r.toString(16);
+  hexaR = hexaCorrect(hexaR);
+  let hexaG = g.toString(16);
+  hexaG = hexaCorrect(hexaG);
+  let hexaB = b.toString(16);
+  hexaB = hexaCorrect(hexaB);
+
+  return "#" + hexaR + hexaG + hexaB;
+}
+
 export function getRelativeLuminance(rgb: RGB): number {
   function gammaCorrect(channel: number): number {
     if (channel <= 0.03928) {

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { ColorInput } from "@/components/ColorInput";
 import { ContrastResult, evaluateContrast, getContrastRatio, hexToRgb } from "@/lib/contrast";
 import { ResultsPanel } from "@/components/ResultsPanel";
+import { ImageColorPicker } from "@/components/ImageColorPicker";
+
 
 export default function Home() {
   const [foregroundHex, setForegroundHex] = useState('#000000');
@@ -19,6 +21,11 @@ export default function Home() {
 
   return (
     <main>
+      <ImageColorPicker
+        onForegroundPick={setForegroundHex}
+        onBackgroundPick={setBackgroundHex}
+      />
+
       <ColorInput 
         id="foreground"
         label="Text Color"
