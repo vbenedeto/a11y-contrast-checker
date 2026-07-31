@@ -41,7 +41,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Live demo
 
-[[A11y Contrast Checker](https://a11y-contrast-checker.vercel.app/)]
+[A11y Contrast Checker](https://a11y-contrast-checker.vercel.app/)
 
 ## What I'd add with more time
 
