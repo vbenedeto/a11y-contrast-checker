@@ -41,11 +41,11 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Live demo
 
-[link once deployed]
+[[A11y Contrast Checker](https://a11y-contrast-checker.vercel.app/)]
 
 ## What I'd add with more time
 
 - **Emotion code-snippet parser** — paste a `styled.button` block, extract `color`/`background` values via regex, run them through the same engine. Scoped out to keep the timeline realistic, but the engine already supports it — it'd just need a textarea + a small regex.
-- **Unit tests** (Vitest) for the WCAG math functions — currently verified manually against known reference values (black vs. white = 21:1, white luminance = 1, etc.) 
+- **Unit tests** for the WCAG math functions — currently verified manually against known reference values (black vs. white = 21:1, white luminance = 1, etc.) 
 - **A large-text toggle** — right now all five thresholds show at once, which is complete but doesn't let someone say "I'm specifically checking large text" and get a single, focused answer.
 - **"Suggested fix"** — nudge a failing color's lightness until it crosses the passing threshold, so the tool doesn't just say "fail," it helps fix it.
