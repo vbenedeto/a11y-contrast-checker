@@ -7,6 +7,7 @@ import { ResultsPanel } from "@/components/ResultsPanel";
 import { ImageColorPicker } from "@/components/ImageColorPicker";
 import styled from "@emotion/styled";
 import { ColorPreview } from "@/components/ColorPreview";
+import { Dot } from "lucide-react";
 
 const StyledHeader = styled.header`
   padding: ${({ theme }) => theme.spacing.xl} ${({ theme }) => theme.spacing.lg};
@@ -41,6 +42,9 @@ const StyledMain = styled.main`
 `;
 
 const StyledFooter = styled.footer`
+  display: flex;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spacing.lg};
   padding: ${({ theme }) => theme.spacing.md};
   text-align: center;
 
@@ -124,6 +128,10 @@ export default function Home() {
       <StyledFooter>
         <a href="https://github.com/vbenedeto/a11y-contrast-checker" target="_blank" rel="noopener noreferrer">
           View source on Github
+        </a>
+        <Dot />
+        <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener noreferrer">  
+          Learn more about WCAG
         </a>
       </StyledFooter>
     </>
