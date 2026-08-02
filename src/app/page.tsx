@@ -6,6 +6,7 @@ import { ContrastResult, evaluateContrast, getContrastRatio, hexToRgb } from "@/
 import { ResultsPanel } from "@/components/ResultsPanel";
 import { ImageColorPicker } from "@/components/ImageColorPicker";
 import styled from "@emotion/styled";
+import { ColorPreview } from "@/components/ColorPreview";
 
 const StyledHeader = styled.header`
   padding: ${({ theme }) => theme.spacing.xl} ${({ theme }) => theme.spacing.lg};
@@ -46,7 +47,7 @@ const StyledFooter = styled.footer`
   a {
     color: ${({ theme }) => theme.colors.text};
     text-decoration: none;
-     display: inline-block;
+    display: inline-block;
     transition: transform 0.2s ease, color 0.2s ease;
 
     &:hover,
@@ -114,7 +115,10 @@ export default function Home() {
             onBackgroundPick={setBackgroundHex}
           />
         )}
-
+        <ColorPreview
+          foregroundHex={foregroundHex}
+          backgroundHex={backgroundHex}
+        />
         <ResultsPanel result={result} />
       </StyledMain>
       <StyledFooter>
