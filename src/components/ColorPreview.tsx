@@ -31,6 +31,17 @@ const PreviewBox = styled.div<{ $currentBg: string, $currentFg: string }>`
   }
 `
 
+const VisuallyHiddenLiveRegion = styled.div`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+`
+
 export function ColorPreview({ foregroundHex, backgroundHex}: ColorPreviewProps) {
   return (
     <Section>
@@ -43,6 +54,10 @@ export function ColorPreview({ foregroundHex, backgroundHex}: ColorPreviewProps)
       >
         <p aria-hidden="true">Sample Text</p>
       </PreviewBox>
+
+      <VisuallyHiddenLiveRegion aria-live="polite">
+        {`Text color set to ${foregroundHex}. Background color set to ${backgroundHex}.`}
+      </VisuallyHiddenLiveRegion>
     </Section>
   )
 }

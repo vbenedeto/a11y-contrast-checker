@@ -27,15 +27,27 @@ const StatusGroup = styled.span<{ $passed: boolean }>`
   color: ${({ theme, $passed }) => ($passed ? theme.colors.pass : theme.colors.fail)};
 `;
 
+const VisuallyHiddenStatus = styled.span`
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+`;
 
 export function ResultBadge({ label, passed }: ResultBadgeProps) {
   return (
     <BadgeRow $passed={passed}>
-      <Label>{label}</Label>
-      <StatusGroup $passed={passed}>
+      <Label aria-hidden="true">{label}</Label>
+      <StatusGroup $passed={passed} aria-hidden="true">
         {passed ? <Check aria-hidden="true" /> : <X aria-hidden="true" />}
         {passed ? 'PASS' : 'FAIL'}
       </StatusGroup>
+      <VisuallyHiddenStatus>
+        {`${label}: ${passed ? 'Pass' : 'Fail'}`}
+      </VisuallyHiddenStatus>
     </BadgeRow>
   );
 }
