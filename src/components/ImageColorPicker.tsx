@@ -65,6 +65,11 @@ const RadioGroup = styled.div`
   input[type="radio"] {
     accent-color: ${({ theme }) => theme.colors.primary};
   }
+  
+  p {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
+    font-weight: bold;
+  }
 `;
 
 const StyledCanvas = styled.canvas<{ $visible: boolean }>`
@@ -139,17 +144,17 @@ export function ImageColorPicker({ onForegroundPick, onBackgroundPick }: ImageCo
       </UploadRow>
 
       {imageLoaded && (
-        <RadioGroup role="radiogrup" aria-label="Choose which color you're picking">
-          <label htmlFor="radio-foreground">
-            <input 
-              id="radio-foreground"
-              type="radio" 
-              name="pick-target"
-              checked={pickTarget === 'foreground'}
-              onChange={() => setPickTarget('foreground')}
-            />
-            Pick text color
-          </label>
+        <RadioGroup role="radiogroup" aria-label="Choose which color you're picking">
+            <label htmlFor="radio-foreground">
+              <input 
+                id="radio-foreground"
+                type="radio" 
+                name="pick-target"
+                checked={pickTarget === 'foreground'}
+                onChange={() => setPickTarget('foreground')}
+              />
+              Pick text color
+            </label>
           <label htmlFor="radio-background">
             <input 
               id="radio-background"
@@ -162,6 +167,9 @@ export function ImageColorPicker({ onForegroundPick, onBackgroundPick }: ImageCo
           </label>
         </RadioGroup>
       )}
+      <p>
+        Select which color to pick, then click anywhere on the image. Repeat for the other color. Check live preview below.
+      </p>
 
       <StyledCanvas
         ref={canvasRef}
