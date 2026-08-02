@@ -9,6 +9,10 @@ const Panel = styled.section`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.sm};
+
+  h3 {
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+  }
 `;
 
 const RatioDisplay = styled.p`
@@ -46,10 +50,11 @@ export function ResultsPanel({ result }: { result : ContrastResult | null}) {
   }
 
   return (
-    <Panel aria-live="polite" aria-label="Contrast check results">
+    <Panel aria-live="polite">
+      <h3>Contrast Results</h3>
       <RatioDisplay>
-        <RatioLabel>Contrast Ratio: </RatioLabel>
-        <RatioValue>{result.ratio.toFixed(2)}:1</RatioValue>
+        <RatioLabel>Ratio: </RatioLabel>
+        <RatioValue aria-label="Ratio:">{result.ratio.toFixed(2)}:1</RatioValue>
         
       </RatioDisplay>
       <ResultBadge label="Normal Text (AA)" passed={result.normalTextAA} />
